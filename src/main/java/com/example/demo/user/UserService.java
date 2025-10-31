@@ -16,5 +16,10 @@ public class UserService {
                 .findFirst()
                 .orElse(null);
     }
+
+    public User addUser(User user) {
+        users.add(user);
+        return user;
+    }
 }
 

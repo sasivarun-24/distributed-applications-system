@@ -1,9 +1,7 @@
 package com.example.demo.user;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,6 +21,18 @@ public class UserController {
             return ResponseEntity.ok(user);
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("/user/create")
+    public ResponseEntity<User> createUser(
+            @RequestParam int id,
+            @RequestParam String firstName,
+            @RequestParam String lastName,
+            @RequestParam String email) {
+        
+        User newUser = new User(id, firstName, lastName, email, List.of());
+        userService.addUser(newUser);
+        return ResponseEntity.ok(newUser);
     }
 }
 
