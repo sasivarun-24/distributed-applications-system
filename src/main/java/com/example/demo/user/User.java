@@ -33,15 +33,15 @@ public class User {
 
     public static  List<User> getSampleUsers(){
         List<User> users = new ArrayList<>();
-        users.add(new User(1, "Akshaya", "S", "akshaya@gmail.com",
+        users.add(new User(1, "varun", "r", "varun@gmail.com",
                 Arrays.asList(
-                        new Address("32 Leipsiger strase", "Fulda", "12345", "Germany"),
-                        new Address("456 Bahnofstrase", "Freiburg", "12345", "Germany")
+                        new Address("38 niesiger strase", "Fulda", "12345", "Germany"),
+                        new Address("456 Bahnofstrase", "chennai", "12345", "Germany")
                 )
         ));
-        users.add(new User(2, "Chris", "schaer", "chris@yahoo.com",
+        users.add(new User(2, "Chris evans", "schaer", "chrisevans@yahoo.com",
                 Arrays.asList(
-                        new Address("43 Stadtschloss", "Frankfurt", "54321", "Germany")
+                        new Address("43 zob", "Frankfurt zob", "5432331", "Germany")
                 )
         ));
         return users;

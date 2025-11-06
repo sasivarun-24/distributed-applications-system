@@ -8,7 +8,7 @@ public class Product {
     private String name;
     private double price;
     private String size;
-    private String color;
+    private String color;  // lowercase 'c'
 
     // Constructor
     public Product(int id, String name, double price, String size, String color) {
@@ -16,7 +16,7 @@ public class Product {
         this.name = name;
         this.price = price;
         this.size = size;
-        this.color = color;
+        this.color = color;  // lowercase
     }
 
     // Getters and Setters
@@ -32,16 +32,16 @@ public class Product {
     public String getSize() { return size; }
     public void setSize(String size) { this.size = size; }
 
-//    public String getColor() { return color; }
-//    public void setColor(String color) { this.color=color;}
+    public String getColor() { return color; }  // Corrected getter
+    public void setColor(String color) { this.color = color; } // Corrected setter
 
     public static List<Product> getSampleProducts() {
         List<Product> products = new ArrayList<>();
-        products.add(new Product(1, "T-Shirt", 19.99, "M", "Red"));
-        products.add(new Product(2, "Jeans", 49.99, "L", "Blue"));
-        products.add(new Product(3, "Sneakers", 69.99, "42", "White"));
-        products.add(new Product(4, "Hat", 15.99, "One Size", "Black"));
-        products.add(new Product(5, "Jacket", 89.99, "XL", "Green"));
+        products.add(new Product(1, "jacket", 49.99, "M", "black"));
+        products.add(new Product(2, "Jeans", 39.99, "32", "Blue"));
+        products.add(new Product(3, "winter shoes", 69.99, "10", "black"));
+        products.add(new Product(4, "tee", 10.99, "M", "rose"));
+        products.add(new Product(5, "Nike jordan", 89.99, "9", "Green"));
         return products;
     }
 }
