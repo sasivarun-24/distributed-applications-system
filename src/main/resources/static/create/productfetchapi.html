@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Product with JSON POST</title>
+    <script>
+        async function submitProduct(event) {
+            event.preventDefault();
+
+            const product = {
+                id: parseInt(document.getElementById('id').value),
+                name: document.getElementById('name').value,
+                price: parseFloat(document.getElementById('price').value),
+                size: document.getElementById('size').value,
+                color: document.getElementById('color').value
+            };
+
+            try {
+                const response = await fetch('/products/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(product)
+                });
+
+                const message = await response.text();
+                alert(message);
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+    </script>
+</head>
+<body>
+<h1>Add Product with JSON POST</h1>
+<form id="productForm" onsubmit="submitProduct(event)">
+    <label>ID:</label>
+    <input type="number" id="id" required /><br/>
+    <label>Name:</label>
+    <input type="text" id="name" required /><br/>
+    <label>Price:</label>
+    <input type="number" step="0.01" id="price" required /><br/>
+    <label>Size:</label>
+    <input type="text" id="size" required /><br/>
+    <label>Color:</label>
+    <input type="text" id="color" required /><br/>
+    <button type="submit">Add Product</button>
+</form>
+</body>
+</html>

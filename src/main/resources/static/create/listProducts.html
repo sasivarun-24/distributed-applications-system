@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>List and Filter Products</title>
+    <script>
+        async function loadProducts() {
+            const name = document.getElementById('filterName').value;
+            const size = document.getElementById('filterSize').value;
+            let url = '/products/filter?';
+            if(name) url += 'name=' + encodeURIComponent(name) + '&';
+            if(size) url += 'size=' + encodeURIComponent(size);
+
+            try {
+                const response = await fetch(url);
+                if (response.ok) {
+                    const products = await response.json();
+                    const list = document.getElementById('productList');
+                    list.innerHTML = '';
+                    products.forEach(p => {
+                        let item = document.createElement('li');
+                        item.textContent = `ID: ${p.id}, Name: ${p.name}, Price: ${p.price}, Size: ${p.size}, Color: ${p.color}`;
+                        list.appendChild(item);
+                    });
+                } else {
+                    alert('Failed to load products');
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+    </script>
+</head>
+<body>
+<h1>List and Filter Products</h1>
+<label>Filter by Name:</label>
+<input type="text" id="filterName" oninput="loadProducts()"><br>
+<label>Filter by Size:</label>
+<input type="text" id="filterSize" oninput="loadProducts()"><br><br>
+<ul id="productList"></ul>
+
+<script>
+    loadProducts(); // Load initially
+</script>
+</body>
+</html>
