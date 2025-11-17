@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Product Detail</title>
+</head>
+<body>
+<h1 th:text="${product.name}">Product Name</h1>
+<ul>
+    <li>ID: <span th:text="${product.id}"></span></li>
+    <li>Price: <span th:text="${product.price}"></span></li>
+    <li>Size: <span th:text="${product.size}"></span></li>
+    <li>Color: <span th:text="${product.color}"></span></li>
+</ul>
+
+
+<a th:href="@{'/cart-add/' + ${product.id}}">
+    Add to Cart
+</a>
+
+<br/><br/>
+
+<a href="/mvc-api/product">Back to Catalog</a>
+<a href="/dashboard/dashboard.html">Back to Dashboard</a>
+</body>
+</html>

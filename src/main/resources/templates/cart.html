@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Shopping Cart</title>
+</head>
+<body>
+<h1>Shopping Cart</h1>
+
+<a href="/mvc-api/product">Back to Catalog</a> | <a href="/dashboard/dashboard.html">Dashboard</a>
+
+<table>
+    <thead>
+    <tr><th>Product</th><th>Quantity</th><th>Price each</th><th>Total Price</th></tr>
+    </thead>
+    <tbody>
+    <tr th:each="entry : ${cart.products.entrySet()}">
+        <td th:text="${entry.key.name}"></td>
+        <td th:text="${entry.value}"></td>
+        <td th:text="${entry.key.price}"></td>
+        <td th:text="${entry.key.price * entry.value}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<h3>Total:
+    <span th:text="${total}"></span>
+</h3>
+
+</body>
+</html>

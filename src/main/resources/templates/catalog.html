@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Product Catalog</title>
+</head>
+<body>
+<h1>Product Catalog</h1>
+<a th:href="@{'/mvc-api/product?edit=' + (${edit} ? false : true)}"
+   th:text="${edit} ? 'Disable Edit Mode' : 'Enable Edit Mode'">
+</a>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th><th>Name</th><th>Price</th><th>Size</th><th>Color</th>
+        <th th:if="${edit}">Delete</th>
+        <th>Details</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="prod : ${products}">
+        <td th:text="${prod.id}"></td>
+        <td th:text="${prod.name}"></td>
+        <td th:text="${prod.price}"></td>
+        <td th:text="${prod.size}"></td>
+        <td th:text="${prod.color}"></td>
+        <td th:if="${edit}">
+            <a th:href="@{'/mvc-api/product/product-delete/' + ${prod.id}}"
+               onclick="return confirm('Delete product?');">Delete</a>
+        </td>
+        <td>
+            <a th:href="@{'/mvc-api/product/' + ${prod.id}}">View</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<a href="/dashboard/dashboard.html">Back to Dashboard</a>
+</body>
+</html>
