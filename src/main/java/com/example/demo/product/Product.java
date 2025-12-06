@@ -1,47 +1,94 @@
 package com.example.demo.product;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Product {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id; // Changed to Long for consistency with Repository
     private String name;
     private double price;
     private String size;
-    private String color;  // lowercase 'c'
+    private String color;
+
+    // Default Constructor required by JPA
+    public Product() {
+    }
 
     // Constructor
-    public Product(int id, String name, double price, String size, String color) {
-        this.id = id;
+    public Product(String name, double price, String size, String color) {
         this.name = name;
         this.price = price;
         this.size = size;
-        this.color = color;  // lowercase
+        this.color = color;
     }
 
     // Getters and Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public double getPrice() { return price; }
-    public void setPrice(double price) { this.price = price; }
+    public String getName() {
+        return name;
+    }
 
-    public String getSize() { return size; }
-    public void setSize(String size) { this.size = size; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public String getColor() { return color; }  // Corrected getter
-    public void setColor(String color) { this.color = color; } // Corrected setter
+    public double getPrice() {
+        return price;
+    }
 
-    public static List<Product> getSampleProducts() {
-        List<Product> products = new ArrayList<>();
-        products.add(new Product(1, "jacket", 49.99, "M", "black"));
-        products.add(new Product(2, "Jeans", 39.99, "32", "Blue"));
-        products.add(new Product(3, "winter shoes", 69.99, "10", "black"));
-        products.add(new Product(4, "tee", 10.99, "M", "rose"));
-        products.add(new Product(5, "Nike jordan", 89.99, "9", "Green"));
-        return products;
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    // Hardcoded list removed/deprecated for database usage, but kept if needed for
+    // reference until refactor complete
+    /*
+     * public static List<Product> getSampleProducts() {
+     * return new ArrayList<>();
+     * }
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Product product = (Product) o;
+        return id != null && id.equals(product.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

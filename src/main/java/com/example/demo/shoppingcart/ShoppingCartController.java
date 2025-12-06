@@ -15,7 +15,7 @@ public class ShoppingCartController {
 
     @GetMapping("/cart")
     public String viewCart(Model model) {
-        ShoppingCart cart = addToCartFacade.getCart();  // Use facade proxy, not cartService directly
+        ShoppingCart cart = addToCartFacade.getCart(); // Use facade proxy, not cartService directly
         double total = cart.products.entrySet()
                 .stream()
                 .mapToDouble(e -> e.getKey().getPrice() * e.getValue())
@@ -26,7 +26,7 @@ public class ShoppingCartController {
     }
 
     @GetMapping("/cart-add/{id}")
-    public String addToCart(@PathVariable int id) {
+    public String addToCart(@PathVariable Long id) {
         addToCartFacade.addToCart(id); // Only call facade for add logic
         return "redirect:/cart";
     }

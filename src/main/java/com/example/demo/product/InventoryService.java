@@ -10,15 +10,25 @@ public class InventoryService {
     private Map<Integer, Integer> inventory = new HashMap<>();
 
     public InventoryService() {
-        // Hardcoded stock for your example products
-        inventory.put(1, 5); // productId 1
-        inventory.put(2, 10); // productId 2
-        inventory.put(3, 0); // productId 3
-        // Add more productId-stock pairs as needed
+        // Initialize stock for a range of product IDs to cover seeded data
+        for (int i = 1; i <= 20; i++) {
+            inventory.put(i, 10); // Default stock of 10 for all
+        }
+        // Set some items as out of stock for demonstration
+        inventory.put(3, 0);
+        inventory.put(7, 0);
+        inventory.put(9, 0);
+        inventory.put(14, 0);
     }
 
     public int getStockForProductId(int productId) {
-        return inventory.getOrDefault(productId, 0);
+        // Robust logic: Make roughly 2-3 products out of stock based on ID
+        // This works even if IDs drift (e.g. 21, 22...)
+        if (productId % 5 == 0 || productId % 5 == 3) {
+            return 0;
+        }
+        // Default to 10 if not explicitly tracked
+        return inventory.getOrDefault(productId, 10);
     }
 
     public void reduceStockForProductId(int productId) {

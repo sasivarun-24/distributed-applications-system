@@ -9,8 +9,20 @@
 
 
 
-<a th:href="@{'/mvc-api/product'(edit=${edit} ? 'false' : 'true')}"
+<a th:href="@{'/mvc-api/product'(edit=${edit} ? 'false' : 'true', color=${param.color})}"
    th:text="${edit} ? 'Disable Edit Mode' : 'Enable Edit Mode'"></a>
+
+<br/><br/>
+<div>
+    Filter by Color:
+    <a th:href="@{/mvc-api/product(color='Black', edit=${edit})}">Black</a> |
+    <a th:href="@{/mvc-api/product(color='Blue', edit=${edit})}">Blue</a> |
+    <a th:href="@{/mvc-api/product(color='White', edit=${edit})}">White</a> |
+    <a th:href="@{/mvc-api/product(color='Red', edit=${edit})}">Red</a> |
+    <a th:href="@{/mvc-api/product(color='Green', edit=${edit})}">Green</a> |
+    <a th:href="@{/mvc-api/product(edit=${edit})}">All</a>
+</div>
+<br/>
 
 <table>
     <thead>

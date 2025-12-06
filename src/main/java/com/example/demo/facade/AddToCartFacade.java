@@ -16,11 +16,11 @@ public class AddToCartFacade {
     private InventoryService inventoryService;
 
     // Add to cart - only if product is in stock
-    public ShoppingCart addToCart(int productId) {
-        int stock = inventoryService.getStockForProductId(productId);
+    public ShoppingCart addToCart(Long productId) {
+        int stock = inventoryService.getStockForProductId(productId.intValue());
         if (stock > 0) {
             cartService.addProductById(productId);
-            inventoryService.reduceStockForProductId(productId);
+            inventoryService.reduceStockForProductId(productId.intValue());
         }
         // Always return current cart state, whether add succeeded or not
         return cartService.getCart();

@@ -21,13 +21,13 @@ public class ShoppingCartService {
         return cart;
     }
 
-    public void addProductById(int productId) {
+    public void addProductById(Long productId) {
         productService.getProductById(productId).ifPresent(p -> {
             cart.products.put(p, cart.products.getOrDefault(p, 0) + 1);
         });
     }
 
-    public void removeProductById(int productId) {
+    public void removeProductById(Long productId) {
         productService.getProductById(productId).ifPresent(p -> {
             cart.products.remove(p);
         });

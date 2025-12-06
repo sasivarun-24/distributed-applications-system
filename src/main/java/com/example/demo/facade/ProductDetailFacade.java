@@ -17,11 +17,17 @@ public class ProductDetailFacade {
     @Autowired
     private InventoryService inventoryService;
 
-    public ProductDetailDTO getProductDetailById(int productId) {
+    public ProductDetailDTO getProductDetailById(Long productId) {
         Optional<Product> productOpt = productService.getProductById(productId);
         if (productOpt.isPresent()) {
             Product product = productOpt.get();
-            int stock = inventoryService.getStockForProductId(productId);
+            // Inventory service might still expect int? Let's check or cast if needed.
+            // Assuming for now we cast to int for inventory if it's not refactored yet, or
+            // change inventory too.
+            // For now, let's look at InventoryService signature.
+            // But to fix compilation of THIS file, we need to match ProductService which
+            // expects Long.
+            int stock = inventoryService.getStockForProductId(productId.intValue());
             return new ProductDetailDTO(product, stock);
         }
         return null;
