@@ -6,6 +6,15 @@ import com.example.demo.shoppingcart.ShoppingCart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * Facade managing the shopping cart operations.
+ * <p>
+ * This component acts as a higher-level interface to the
+ * {@link ShoppingCartService} and {@link InventoryService},
+ * ensuring that products are only added to the cart if they are in stock and
+ * that stock is reserved accordingly.
+ * </p>
+ */
 @Service
 public class AddToCartFacade {
 

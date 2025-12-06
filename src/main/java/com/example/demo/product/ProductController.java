@@ -35,7 +35,7 @@ public class ProductController {
             @RequestParam double price,
             @RequestParam String size,
             @RequestParam String color) {
-        Product newProduct = new Product(name, price, size, color);
+        Product newProduct = new Product(name, java.math.BigDecimal.valueOf(price), size, color);
         boolean check = productService.checkDuplicate(newProduct); // This now checks/saves
         if (check) {
             return ResponseEntity.ok("Product added successfully!");

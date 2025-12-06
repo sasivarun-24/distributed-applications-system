@@ -4,16 +4,22 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.util.ArrayList;
-import java.util.List;
+import java.math.BigDecimal;
 
+/**
+ * Represents a product in the catalog.
+ */
 @Entity
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // Changed to Long for consistency with Repository
+    private Long id;
     private String name;
-    private double price;
+
+    /**
+     * The price of the Product in Euros.
+     */
+    private BigDecimal price;
     private String size;
     private String color;
 
@@ -22,7 +28,7 @@ public class Product {
     }
 
     // Constructor
-    public Product(String name, double price, String size, String color) {
+    public Product(String name, BigDecimal price, String size, String color) {
         this.name = name;
         this.price = price;
         this.size = size;
@@ -46,11 +52,11 @@ public class Product {
         this.name = name;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -70,13 +76,6 @@ public class Product {
         this.color = color;
     }
 
-    // Hardcoded list removed/deprecated for database usage, but kept if needed for
-    // reference until refactor complete
-    /*
-     * public static List<Product> getSampleProducts() {
-     * return new ArrayList<>();
-     * }
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o)

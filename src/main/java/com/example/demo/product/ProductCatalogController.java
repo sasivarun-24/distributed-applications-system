@@ -36,6 +36,17 @@ public class ProductCatalogController {
         return "detail";
     }
 
+    @GetMapping("/catalog-paginated")
+    public String catalogPaginated(
+            @org.springframework.data.web.PageableDefault(size = 3) org.springframework.data.domain.Pageable pageable,
+            Model model) {
+        org.springframework.data.domain.Page<com.example.demo.product.Product> page = productService
+                .getProducts(pageable);
+        model.addAttribute("products", page.getContent());
+        model.addAttribute("page", page);
+        return "catalog-paginated";
+    }
+
     @GetMapping("/product-delete/{id}")
     public String deleteProduct(@PathVariable Long id) {
         productService.deleteProductById(id);

@@ -8,6 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 
+/**
+ * Facade providing simplified access to product details.
+ * <p>
+ * This component aggregates information from {@link ProductService} and
+ * {@link InventoryService}
+ * to provide a complete view of a product including its stock availability.
+ * </p>
+ */
 @Service
 public class ProductDetailFacade {
 
