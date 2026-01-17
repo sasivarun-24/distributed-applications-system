@@ -1,10 +1,11 @@
 package com.example.demo.user;
 
+import org.springframework.stereotype.Service;
 import java.util.List;
 
+@Service
 public class UserService {
     private static final List<User> users = User.getSampleUsers();
-
 
     public List<User> getUsers() {
         return users;
@@ -21,5 +22,8 @@ public class UserService {
         users.add(user);
         return user;
     }
-}
 
+    public String getUserId() {
+        return "123456789";
+    }
+}

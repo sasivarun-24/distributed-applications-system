@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Order Success</title>
+</head>
+
+<body>
+    <div
+        style="background-color: #d4edda; color: #155724; padding: 20px; border: 1px solid #c3e6cb; border-radius: 5px;">
+        <h3>Your Order was created successfully</h3>
+        <p>Order created with value: <span th:text="${order.price}"></span></p>
+        <p>User ID: <span th:text="${order.userId}"></span></p>
+    </div>
+    <br>
+    <a href="/dashboard/dashboard.html">Back to Dashboard</a>
+</body>
+
+</html>
