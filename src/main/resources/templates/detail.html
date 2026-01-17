@@ -1,25 +1,108 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Product Detail</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <style>
+        .review-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #f9f9f9;
+        }
+    </style>
 </head>
+
 <body>
-<h1 th:text="${productDetailDTO.product.name}">Product Name</h1>
-<ul>
-    <li>ID: <span th:text="${productDetailDTO.product.id}"></span></li>
-    <li>Price: <span th:text="${productDetailDTO.product.price}"></span></li>
-    <li>Size: <span th:text="${productDetailDTO.product.size}"></span></li>
-    <li>Color: <span th:text="${productDetailDTO.product.color}"></span></li>
-    <li>Stock: <span th:text="${productDetailDTO.stock}"></span></li>
-</ul>
+    <h1 th:text="${productDetailDTO.product.name}">Product Name</h1>
+    <ul>
+        <li>ID: <span th:text="${productDetailDTO.product.id}"></span></li>
+        <li>Price: <span th:text="${productDetailDTO.product.price}"></span></li>
+        <li>Size: <span th:text="${productDetailDTO.product.size}"></span></li>
+        <li>Color: <span th:text="${productDetailDTO.product.color}"></span></li>
+        <li>Stock: <span th:text="${productDetailDTO.stock}"></span></li>
+    </ul>
 
-<p th:if="${productDetailDTO.isSoldOut}" style="color: red;">Sold Out!</p>
+    <p th:if="${productDetailDTO.isSoldOut}" style="color: red;">Sold Out!</p>
 
-<a th:if="!${productDetailDTO.isSoldOut}"
-   th:href="@{'/cart-add/' + ${productDetailDTO.product.id}}">Add to Cart</a>
-<br/><br/>
+    <a th:if="!${productDetailDTO.isSoldOut}" th:href="@{'/cart-add/' + ${productDetailDTO.product.id}}">Add to Cart</a>
+    <br /><br />
 
-<a href="/mvc-api/product">Back to Catalog</a>
-<a href="/dashboard/dashboard.html">Back to Dashboard</a>
+    <a href="/mvc-api/product">Back to Catalog</a>
+    <a href="/dashboard/dashboard.html">Back to Dashboard</a>
+
+    <hr />
+    <h3>Review the product</h3>
+    <form id="reviewForm">
+        <input type="hidden" id="productId" th:value="${productDetailDTO.product.id}" />
+        <input type="hidden" id="productName" th:value="${productDetailDTO.product.name}" />
+
+        <label>Username:</label><br />
+        <input type="text" id="userName" required /><br />
+
+        <label>Review:</label><br />
+        <textarea id="reviewText" required></textarea><br />
+
+        <button type="submit">Submit Review</button>
+    </form>
+
+    <h3>Reviews</h3>
+    <div id="reviews-container">
+    </div>
+
+    <script>
+        var stompClient = null;
+
+        function connect() {
+            var socket = new SockJS('/review-websocket');
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function (frame) {
+                stompClient.subscribe('/topic/reviews', function (reviewOutput) {
+                    showReview(JSON.parse(reviewOutput.body));
+                });
+            });
+        }
+
+        function sendReview() {
+            var productId = document.getElementById('productId').value;
+            var productName = document.getElementById('productName').value;
+            var userName = document.getElementById('userName').value;
+            var reviewText = document.getElementById('reviewText').value;
+
+            stompClient.send("/shop/review", {}, JSON.stringify({
+                'productId': productId,
+                'productName': productName,
+                'userName': userName,
+                'reviewText': reviewText
+            }));
+
+            document.getElementById('userName').value = '';
+            document.getElementById('reviewText').value = '';
+        }
+
+        function showReview(review) {
+            var currentProductId = document.getElementById('productId').value;
+            if (String(review.productId) === String(currentProductId)) {
+                var reviewHtml = '<div class="review-box">' +
+                    '<strong>' + review.userName + '</strong> (' + review.date + ')<br/>' +
+                    '<em>' + review.productName + '</em><br/>' +
+                    '<p>' + review.reviewText + '</p>' +
+                    '</div>';
+                $("#reviews-container").append(reviewHtml);
+            }
+        }
+
+        $(document).ready(function () {
+            connect();
+            $("#reviewForm").on('submit', function (e) {
+                e.preventDefault();
+                sendReview();
+            });
+        });
+    </script>
 </body>
+
 </html>
