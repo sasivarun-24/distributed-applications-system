@@ -30,6 +30,10 @@ public class ProductService {
         return productRepository.findByColor(color);
     }
 
+    public List<Product> getProductsByCategory(String category) {
+        return productRepository.findByCategory(category);
+    }
+
     public List<Product> filterProducts(String name, String size) {
         // For now, fetching all and filtering in memory or use repository if needed.
         // Prompt asks for color filtering specifically via repository.

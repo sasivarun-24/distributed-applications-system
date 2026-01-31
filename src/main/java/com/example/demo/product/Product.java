@@ -22,17 +22,24 @@ public class Product {
     private BigDecimal price;
     private String size;
     private String color;
+    private String category; // Stored as String for simplification, matches Category enum
 
     // Default Constructor required by JPA
     public Product() {
+        this.category = Category.STANDARD.name(); // Default
     }
 
     // Constructor
     public Product(String name, BigDecimal price, String size, String color) {
+        this(name, price, size, color, Category.STANDARD.name());
+    }
+
+    public Product(String name, BigDecimal price, String size, String color, String category) {
         this.name = name;
         this.price = price;
         this.size = size;
         this.color = color;
+        this.category = category;
     }
 
     // Getters and Setters
@@ -74,6 +81,14 @@ public class Product {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     @Override

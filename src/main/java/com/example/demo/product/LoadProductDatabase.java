@@ -55,20 +55,28 @@ class LoadProductDatabase {
 
             // Add sample products if not enough are present
             // We are using hardcoded values here as requested
-            saveProductIfNotExists(repository, new Product("Jacket", new java.math.BigDecimal("49.99"), "M", "Black"));
-            saveProductIfNotExists(repository, new Product("Jeans", new java.math.BigDecimal("39.99"), "32", "Blue"));
             saveProductIfNotExists(repository,
-                    new Product("Winter Shoes", new java.math.BigDecimal("69.99"), "10", "Black"));
-            saveProductIfNotExists(repository, new Product("Tee", new java.math.BigDecimal("10.99"), "M", "Rose"));
+                    new Product("Jacket", new java.math.BigDecimal("49.99"), "M", "Black", Category.SALE.name()));
             saveProductIfNotExists(repository,
-                    new Product("Nike Jordan", new java.math.BigDecimal("89.99"), "9", "Green"));
+                    new Product("Jeans", new java.math.BigDecimal("39.99"), "32", "Blue", Category.STANDARD.name()));
             saveProductIfNotExists(repository,
-                    new Product("Scarf", new java.math.BigDecimal("14.99"), "One Size", "Red"));
-            saveProductIfNotExists(repository, new Product("Hat", new java.math.BigDecimal("19.99"), "L", "Black"));
+                    new Product("Winter Shoes", new java.math.BigDecimal("69.99"), "10", "Black",
+                            Category.STANDARD.name()));
             saveProductIfNotExists(repository,
-                    new Product("Socks", new java.math.BigDecimal("5.99"), "40-42", "White"));
-            saveProductIfNotExists(repository, new Product("Gloves", new java.math.BigDecimal("12.99"), "M", "Black"));
-            saveProductIfNotExists(repository, new Product("Belt", new java.math.BigDecimal("24.99"), "L", "Brown"));
+                    new Product("Tee", new java.math.BigDecimal("10.99"), "M", "Rose", Category.SALE.name()));
+            saveProductIfNotExists(repository,
+                    new Product("Nike Jordan", new java.math.BigDecimal("89.99"), "9", "Green",
+                            Category.STANDARD.name()));
+            saveProductIfNotExists(repository,
+                    new Product("Scarf", new java.math.BigDecimal("14.99"), "One Size", "Red", Category.SALE.name()));
+            saveProductIfNotExists(repository,
+                    new Product("Hat", new java.math.BigDecimal("19.99"), "L", "Black", Category.STANDARD.name()));
+            saveProductIfNotExists(repository,
+                    new Product("Socks", new java.math.BigDecimal("5.99"), "40-42", "White", Category.SALE.name()));
+            saveProductIfNotExists(repository,
+                    new Product("Gloves", new java.math.BigDecimal("12.99"), "M", "Black", Category.STANDARD.name()));
+            saveProductIfNotExists(repository,
+                    new Product("Belt", new java.math.BigDecimal("24.99"), "L", "Brown", Category.SALE.name()));
 
             log.info("Initialization complete. Current count: " + repository.count());
         };

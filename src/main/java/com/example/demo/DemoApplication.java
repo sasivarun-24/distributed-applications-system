@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
+@org.springframework.boot.context.properties.EnableConfigurationProperties(com.example.demo.config.TenantConfig.class)
 public class DemoApplication {
 
     public static void main(String[] args) {
@@ -19,5 +20,5 @@ class DemoController {
     @GetMapping("/")
     public String hello() {
         return "Hello World!";
-}
+    }
 }

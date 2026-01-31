@@ -7,4 +7,6 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByColor(String color);
+
+    List<Product> findByCategory(String category);
 }
