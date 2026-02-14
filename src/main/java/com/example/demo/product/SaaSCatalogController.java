@@ -16,23 +16,29 @@ import java.util.List;
 public class SaaSCatalogController {
 
     private final ProductService productService;
+    private final ExternalProductService externalProductService;
     private final com.example.demo.config.TenantConfig tenantConfig;
 
     @Autowired
-    public SaaSCatalogController(ProductService productService, com.example.demo.config.TenantConfig tenantConfig) {
+    public SaaSCatalogController(ProductService productService, ExternalProductService externalProductService,
+            com.example.demo.config.TenantConfig tenantConfig) {
         this.productService = productService;
+        this.externalProductService = externalProductService;
         this.tenantConfig = tenantConfig;
     }
 
     @Operation(summary = "Get all products", description = "Returns a list of all products in the catalog filtered by Tenant ID.")
     @GetMapping("/catalog")
     public List<Product> getCatalog(@RequestHeader(value = "X-TENANT-ID", required = false) String tenantId) {
+        List<Product> products = new java.util.ArrayList<>();
         if (tenantId != null && tenantConfig.getMapping().containsKey(tenantId)) {
             String category = tenantConfig.getMapping().get(tenantId);
-            return productService.getProductsByCategory(category);
+            products.addAll(productService.getProductsByCategory(category));
         }
-        // Fallback or empty if no tenant/mapping found (though filter should catch
-        // invalid tenants)
-        return List.of();
+
+        // Fetch from external backend and merge
+        products.addAll(externalProductService.fetchProductsFromExternalBackend());
+
+        return products;
     }
 }
